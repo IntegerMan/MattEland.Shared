@@ -6,7 +6,7 @@ namespace MattEland.Shared.Strings
     /// <summary>
     /// A simple <see cref="IDisposable"/> that will invoke Indent and Outdent on a <see cref="IStringBuilder"/> on scope entered and exited.
     /// </summary>
-    internal class IndentScopeHelper : IDisposable
+    internal sealed class IndentScopeHelper : IDisposable
     {
         [NotNull]
         private readonly IStringBuilder _sb;
