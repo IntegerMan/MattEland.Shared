@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using MattEland.Shared.Collections;
+using NUnit.Framework;
 using Shouldly;
-using Xunit;
 
 namespace MattEland.Shared.Tests
 {
@@ -11,7 +11,7 @@ namespace MattEland.Shared.Tests
     /// </summary>
     public class EachTests
     {
-        [Fact]
+        [Test]
         public void EachShouldReturnTheSourceCollection()
         {
             // Arrange
@@ -24,7 +24,7 @@ namespace MattEland.Shared.Tests
             result.ShouldBe(collection);
         }
 
-        [Fact]
+        [Test]
         public void EachShouldOperateOnEachItemIntheCollection()
         {
             // Arrange
@@ -38,7 +38,7 @@ namespace MattEland.Shared.Tests
             sum.ShouldBe(6);
         }
 
-        [Fact]
+        [Test]
         public void EachShouldNotErrorOnNullCollections()
         {
             // Arrange
@@ -50,7 +50,7 @@ namespace MattEland.Shared.Tests
             // Assert - if we got here, it means no exception occurred so we pass
         }        
 
-        [Fact]
+        [Test]
         public void EachShouldNotErrorOnEmptyCollections()
         {
             // Arrange
@@ -62,7 +62,7 @@ namespace MattEland.Shared.Tests
             // Assert - if we got here, it means no exception occurred so we pass
         }        
         
-        [Fact]
+        [TestCase]
         public void EachShouldThrowExceptionIfNoOperation()
         {
             // Arrange
@@ -70,9 +70,22 @@ namespace MattEland.Shared.Tests
 
             // Act / Assert
             Should.Throw<ArgumentNullException>(() => collection.Each(null));
+        }        
+
+        [Test]
+        public void EachSafeShouldAllowModifyingASourceCollection()
+        {
+            // Arrange
+            var collection = new List<int> { 1, 2, 3 };
+
+            // Act
+            collection.EachSafe(i => collection.Remove(i));
+
+            // Assert
+            collection.ShouldBeEmpty();
         }
 
-        [Fact]
+        [Test]
         public void EachIntShouldRepeatTheExpectedAmountOfTimes()
         {
             // Arrange
@@ -87,17 +100,17 @@ namespace MattEland.Shared.Tests
         }
 
         [Theory]
-        [InlineData(0)]
-        [InlineData(-1)]
-        [InlineData(-500)]
-        [InlineData(int.MinValue)]
+        [TestCase(0)]
+        [TestCase(-1)]
+        [TestCase(-500)]
+        [TestCase(int.MinValue)]
         public void EachIntShouldNotInvokeForBadValues(int value)
         {
             // Act / Assert
             value.Each(i => throw new ShouldAssertException($"Method should not have been invoked but was with {i}"));
         }
 
-        [Fact]
+        [Test]
         public void EachDictionaryShouldAllowNullDictionaries()
         {
             // Arrange
@@ -107,7 +120,7 @@ namespace MattEland.Shared.Tests
             dict.Each((key, value) => throw new ShouldAssertException($"Method should not have been invoked but was with key:{key}"));
         }
 
-        [Fact]
+        [Test]
         public void EachDictionaryShouldAllowEmptyDictionaries()
         {
             // Arrange
@@ -117,7 +130,7 @@ namespace MattEland.Shared.Tests
             dict.Each((key, value) => throw new ShouldAssertException($"Method should not have been invoked but was with key:{key}"));
         }
 
-        [Fact]
+        [Test]
         public void EachDictionaryIncludeEachKey()
         {
             // Arrange
@@ -135,7 +148,7 @@ namespace MattEland.Shared.Tests
             keySum.ShouldBe(42);
         }
 
-        [Fact]
+        [Test]
         public void EachDictionaryIncludesCorrectValues()
         {
             // Arrange
@@ -149,7 +162,7 @@ namespace MattEland.Shared.Tests
             dict.Each((key, value) => dict[key].ShouldBe(value));
         }
 
-        [Fact]
+        [Test]
         public void EachDictionaryThrowsOnNoOperation()
         {
             // Arrange

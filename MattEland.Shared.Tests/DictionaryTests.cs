@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using MattEland.Shared.Collections;
+using NUnit.Framework;
 using Shouldly;
-using Xunit;
 
 namespace MattEland.Shared.Tests
 {
@@ -12,7 +12,7 @@ namespace MattEland.Shared.Tests
     /// </summary>
     public class DictionaryTests
     {
-        [Fact]
+        [Test]
         public void TryLoadShouldErrorIfNoOperation()
         {
             // Arrange
@@ -22,7 +22,7 @@ namespace MattEland.Shared.Tests
             Should.Throw<ArgumentNullException>(() => dict.TryLoad(1, null));
         }
 
-        [Fact]
+        [Test]
         public void TryLoadShouldNotErrorWithNullDictionary()
         {
             // Arrange
@@ -32,7 +32,7 @@ namespace MattEland.Shared.Tests
             dict.TryLoad(1, v => throw new ShouldAssertException("No operation expected"));
         }
 
-        [Fact]
+        [Test]
         public void TryLoadShouldNotErrorWithEmptyDictionary()
         {
             // Arrange
@@ -43,7 +43,7 @@ namespace MattEland.Shared.Tests
             result.ShouldBeFalse();
         }
 
-        [Fact]
+        [Test]
         public void TryLoadShouldInvokeWithTheCorrectValue()
         {
             // Arrange

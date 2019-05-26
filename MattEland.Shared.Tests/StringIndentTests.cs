@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using MattEland.Shared.Strings;
+using NUnit.Framework;
 using Shouldly;
-using Xunit;
 
 namespace MattEland.Shared.Tests
 {
@@ -13,7 +13,7 @@ namespace MattEland.Shared.Tests
     public class StringIndentTests
     {
 
-        [Fact]
+        [Test]
         public void StringIndentShouldIndentStrings()
         {
             // Arrange
@@ -29,7 +29,7 @@ namespace MattEland.Shared.Tests
             output.ShouldBe("Hello There\r\n\tGeneral Kenobi!\r\n");
         }
 
-        [Fact]
+        [Test]
         public void StringIndentWithScopeShouldOutdent()
         {
             // Arrange
@@ -48,7 +48,7 @@ namespace MattEland.Shared.Tests
             output.ShouldBe("Foo\r\n\tBar\r\nBaz\r\n");
         }
 
-        [Fact]
+        [Test]
         public void StringBuilderRespectsSourceString()
         {
             // Arrange

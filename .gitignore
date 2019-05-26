@@ -22,3 +22,9 @@ MattEland\.Shared\.Tests/bin/
 MattEland\.Shared\.Tests/obj/
 
 \.sonarqube/
+
+packages/
+
+MattEland\.Shared\.Tests\.Framework/bin/
+
+MattEland\.Shared\.Tests\.Framework/obj/

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using MattEland.Shared.Collections;
+using NUnit.Framework;
 using Shouldly;
-using Xunit;
 
 namespace MattEland.Shared.Tests
 {
@@ -11,7 +11,7 @@ namespace MattEland.Shared.Tests
     /// </summary>
     public class SetTests
     {
-        [Fact]
+        [Test]
         public void CollectionElementsShouldExistInConvertedHashSet()
         {
             // Arrange
@@ -24,7 +24,7 @@ namespace MattEland.Shared.Tests
             source.Each(i => set.Contains(i).ShouldBeTrue());
         }
 
-        [Fact]
+        [Test]
         public void CollectionToHashSetShouldCreateWhenSourceIsNull()
         {
             // Arrange
@@ -38,7 +38,7 @@ namespace MattEland.Shared.Tests
 
         }
 
-        [Fact]
+        [Test]
         public void CollectionToHashSetShouldCreateWhenSourceIsEmpty()
         {
             // Arrange

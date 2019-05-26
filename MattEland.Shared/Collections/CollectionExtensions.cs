@@ -18,7 +18,6 @@ namespace MattEland.Shared.Collections
         /// <param name="source">The collection</param>
         /// <param name="operation">The operation to perform on each member of the collection</param>
         /// <returns>The <paramref name="source"/> collection.</returns>
-        [NotNull]
         public static IEnumerable<T> Each<T>(this IEnumerable<T> source, Action<T> operation)
         {
             if (operation == null) throw new ArgumentNullException(nameof(operation));
@@ -26,14 +25,26 @@ namespace MattEland.Shared.Collections
             // Fail safely to prevent unnecessary safety code for clients
             if (source != null)
             {
+                // ReSharper disable once PossibleMultipleEnumeration
                 foreach (var item in source)
                 {
                     operation(item);
                 }
             }
 
+            // ReSharper disable once PossibleMultipleEnumeration
             return source;
         }
+
+        /// <summary>
+        /// Performs an operation on each member of a cloned <paramref name="source"/> and returns the iterated collection.
+        /// This allows the Each function to remove itself from an underlying collection without throwing exceptions.
+        /// </summary>
+        /// <typeparam name="T">The type contained in the collection</typeparam>
+        /// <param name="source">The collection</param>
+        /// <param name="operation">The operation to perform on each member of the collection</param>
+        /// <returns>A cloned version of the <paramref name="source"/> collection.</returns>
+        public static IEnumerable<T> EachSafe<T>(this IEnumerable<T> source, Action<T> operation) => source?.ToList().Each(operation);
 
         /// <summary>
         /// Performs an operation with each number from 0 to <paramref name="times"/>.
