@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>1.0.0</version>
+    <title>MattEland.Shared.WPF</title>
+    <authors>Matt Eland</authors>
+    <owners>Matt Eland</owners>
+    <license type="expression">MIT</license>
+    <!-- <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl> -->
+    <projectUrl>https://github.com/IntegerMan/MattEland.Shared</projectUrl>
+    <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A collection of random WPF helper libraries that are not related to any one project's core logic.</description>
+    <releaseNotes>Initial version. Only contains BrushRepository.</releaseNotes>
+    <copyright>Copyright 2019 Matt Eland</copyright>
+    <tags>WPF</tags>
+  </metadata>
+  <files>
+    <file src="bin\release\matteland.shared.wpf.dll" target="lib\net46\MattEland.Shared.WPF.dll" />
+    <file src="bin\release\matteland.shared.wpf.xml" target="lib\net46\MattEland.Shared.WPF.xml" />
+  </files>
+</package>
