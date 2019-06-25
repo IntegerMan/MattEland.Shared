@@ -12,8 +12,6 @@ namespace MattEland.Shared.WPF
     [UsedImplicitly]
     public static class BrushRepository
     {
-        [NotNull]
-        private static readonly IDictionary<string, Color> CachedColors = new Dictionary<string, Color>();
         
         [NotNull]
         private static readonly IDictionary<Color, Brush> CachedBrushes = new Dictionary<Color, Brush>();
@@ -29,7 +27,7 @@ namespace MattEland.Shared.WPF
             if (hexColor == null) throw new ArgumentNullException(nameof(hexColor));
 
             hexColor = hexColor.ToUpperInvariant();
-            var color = GetColorFromHexColor(hexColor);
+            var color = ColorRepository.GetColorFromHexColor(hexColor);
 
             return GetBrushForColor(color);
         }
@@ -69,31 +67,5 @@ namespace MattEland.Shared.WPF
             return brush;
         }
 
-        /// <summary>
-        /// Gets a WPF Color object from a hex color string and stores the translation for future requests.
-        /// </summary>
-        /// <param name="hexColor">The hex color to use. Sample formats are #00FF00 or #FF00FFCC</param>
-        /// <returns>The Color object</returns>
-        [UsedImplicitly]
-        public static Color GetColorFromHexColor([NotNull] string hexColor)
-        {
-            if (hexColor == null) throw new ArgumentNullException(nameof(hexColor));
-
-            // Normalize the hex color for ease of lookup
-            hexColor = hexColor.ToUpperInvariant();
-
-            if (CachedColors.ContainsKey(hexColor))
-            {
-                return CachedColors[hexColor];
-            }
-
-            // Perform the color conversion
-            var color = (Color?) ColorConverter.ConvertFromString(hexColor) ?? Colors.Transparent;
-
-            // Store it for the next query
-            CachedColors[hexColor] = color;
-            
-            return color;
-        }
     }
 }
