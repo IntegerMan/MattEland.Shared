@@ -38,21 +38,19 @@ namespace MattEland.Shared.WPF
         /// <param name="color">The Color to use</param>
         /// <returns>The newly-created brush</returns>
         [NotNull, UsedImplicitly]
-        public static Brush GetBrushForColor(Color color)
-        {
-            if (CachedBrushes.ContainsKey(color))
-            {
-                return CachedBrushes[color];
-            }
+        public static Brush GetBrushForColor(Color color) => 
+            CachedBrushes.ContainsKey(color) 
+                ? CachedBrushes[color] 
+                : color.ToSolidBrush();
 
-            var brush = BuildBrushForColor(color);
-
-            CachedBrushes[color] = brush;
-
-            return brush;
-        }
-
-        private static SolidColorBrush BuildBrushForColor(Color color)
+        /// <summary>
+        /// Builds a SolidColorBrush for a given color.
+        /// </summary>
+        /// <param name="color">The Color to build a brush around.</param>
+        /// <param name="freeze">Whether or not the brush will be frozen. Defaults to true. If false, the brush will not be cached.</param>
+        /// <returns>The generated brush</returns>
+        [NotNull]
+        public static SolidColorBrush ToSolidBrush(this Color color, bool freeze = true)
         {
             // If we're looking at a transparent alpha, just return the built-in transparent brush
             if (color.A == 0)
@@ -62,7 +60,15 @@ namespace MattEland.Shared.WPF
 
             // Create the brush and freeze it
             var brush = new SolidColorBrush(color);
-            brush.Freeze(); // Freezing a brush improves performance but prevents it from being modified
+
+            // For performance reasons, freeze brushes and store them in cache if we're allowed to
+            if (freeze)
+            {
+                brush.Freeze(); // Freezing a brush improves performance but prevents it from being modified
+
+                // Store it in cache for next time around
+                CachedBrushes[color] = brush;
+            }
 
             return brush;
         }

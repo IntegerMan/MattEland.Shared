@@ -3,8 +3,8 @@
   <metadata>
     <id>$id$</id>
 
-    <version>1.0.2</version>
-    <releaseNotes>Expanded Color capabilities.</releaseNotes>
+    <version>1.0.3</version>
+    <releaseNotes>Expanded Color capabilities to include caching, blending, and ease of SolidColorBrush creation utilities.</releaseNotes>
 
     <title>MattEland.Shared.WPF</title>
     <authors>Matt Eland</authors>
