@@ -36,7 +36,7 @@ namespace MattEland.Shared.WPF
         /// </summary>
         /// <param name="color">The Color to use</param>
         /// <returns>The newly-created brush</returns>
-        [NotNull]
+        [NotNull, UsedImplicitly]
         public static Brush GetBrushForColor(Color color)
         {
             if (CachedBrushes.ContainsKey(color))
@@ -53,22 +53,30 @@ namespace MattEland.Shared.WPF
 
         private static SolidColorBrush BuildBrushForColor(Color color)
         {
-            SolidColorBrush brush;
-
+            // If we're looking at a transparent alpha, just return the built-in transparent brush
             if (color.A == 0)
             {
-                brush = Brushes.Transparent;
+                return Brushes.Transparent;
             }
-            else
-            {
-                brush = new SolidColorBrush(color);
-                brush.Freeze();
-            }
+
+            // Create the brush and freeze it
+            var brush = new SolidColorBrush(color);
+            brush.Freeze(); // Freezing a brush improves performance but prevents it from being modified
 
             return brush;
         }
 
-        private static Color GetColorFromHexColor(string hexColor) 
-            => (Color?) ColorConverter.ConvertFromString(hexColor) ?? Colors.Transparent;
+        /// <summary>
+        /// Gets a WPF Color object from a hex color string and stores the translation for future requests.
+        /// </summary>
+        /// <param name="hexColor">The hex color to use. Sample formats are #00FF00 or #FF00FFCC</param>
+        /// <returns>The Color object</returns>
+        [UsedImplicitly]
+        public static Color GetColorFromHexColor([NotNull] string hexColor)
+        {
+            if (hexColor == null) throw new ArgumentNullException(nameof(hexColor));
+            
+            return (Color?) ColorConverter.ConvertFromString(hexColor) ?? Colors.Transparent;
+        }
     }
 }
