@@ -10,7 +10,7 @@ namespace MattEland.Shared.WPF
     /// of brushes that must be created by recycling the same brushes for identical colors.
     /// </summary>
     [UsedImplicitly]
-    public static class BrushRepository
+    public static class BrushHelpers
     {
         
         [NotNull]
@@ -27,7 +27,7 @@ namespace MattEland.Shared.WPF
             if (hexColor == null) throw new ArgumentNullException(nameof(hexColor));
 
             hexColor = hexColor.ToUpperInvariant();
-            var color = ColorRepository.GetColorFromHexColor(hexColor);
+            var color = hexColor.GetColorFromHexColor();
 
             return GetBrushForColor(color);
         }
