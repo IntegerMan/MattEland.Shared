@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>MattEland.Shared.WPF</title>
     <authors>Matt Eland</authors>
     <owners>Matt Eland</owners>

@@ -36,3 +36,5 @@ MattEland\.Shared\.WPF/bin/
 MattEland\.Shared\.WPF/obj/
 
 \.idea/
+
+*.nupkg
